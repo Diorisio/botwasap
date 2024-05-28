@@ -21,11 +21,9 @@ PRICE_PER_KM = 1500
 
 # Endpoint para recibir mensajes de WhatsApp
 
-@app.route('/webhook', methods=['GET'])
+@app.route('/', methods=['GET'])
 def dummy():
-    i=0
-    print('hola')
-    i+=1
+   return "hola"
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -101,3 +99,4 @@ def complete_service():
 
 if __name__ == '__main__':
     app.run(debug=True)
+ 
