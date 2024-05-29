@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from twilio.twiml.messaging_response import MessagingResponse
+from twilio.twiml.messaging_response import Body, Message, Redirect, MessagingResponse
 import sqlite3
 
 app = Flask(__name__)
@@ -20,10 +20,30 @@ if __name__ == '__main__':
 PRICE_PER_KM = 1500
 
 # Endpoint para recibir mensajes de WhatsApp
-
 @app.route('/', methods=['GET'])
-def dummy():
-   return "hola"
+def saludo():
+    """
+    Crea una respuesta de Twilio con un mensaje y una redirección opcional.
+
+    :param body_text: El texto del mensaje de respuesta.
+    :param redirect_url: La URL a la que redirigir, si es aplicable.
+    :return: La respuesta de Twilio como una cadena.
+    """
+    redirect_url = 'https://demo.twilio.com/welcome/sms/'
+    body_text = 'Hello World!'
+    response = MessagingResponse()
+    message = Message()
+    message.body(body_text)
+    response.append(message)
+    print(response)
+    
+    if redirect_url:
+        response.redirect(redirect_url)
+    return str(response)
+
+# Ejemplo de uso
+
+
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
